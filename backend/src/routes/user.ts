@@ -7,7 +7,7 @@ import { signupInput, signinInput } from '@ankur-sharma/medium-common';
 
 export const userRouter = new Hono<{
         Bindings: {
-		DATABASE_URL: string;
+		DATABASE_URL: string; 
 		JWT_SECRET: string;
 	}
 }>();
@@ -74,7 +74,7 @@ userRouter.post('/signin', async(c) => {
 
 	return c.text("User logged in successfully: "+ token);
 	} catch (error) {
-		console.error("Error during signup:",error)
+		console.error("Error during signin:",error)
 	}
 })
 

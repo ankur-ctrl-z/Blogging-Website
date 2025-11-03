@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors' // ✅ Import CORS middleware
+import { cors } from 'hono/cors' 
 import { userRouter } from './routes/user'
 import { blogRouter } from './routes/blog'
 
@@ -10,15 +10,13 @@ const app = new Hono<{
   }
 }>()
 
-// ✅ Use CORS middleware for all routes
 app.use('*', cors({
-  origin: 'https://blogging-website-one.vercel.app/', // use '*' only for testing
+  origin: 'https://blogging-website-one.vercel.app/',
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
-}))
+})) 
 
-// Routes
 app.route('/api/v1/user', userRouter)
 app.route('/api/v1/blog', blogRouter)
 
-export default app
+export default app;
