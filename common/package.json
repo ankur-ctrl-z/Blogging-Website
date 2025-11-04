@@ -1,6 +1,6 @@
 {
   "name": "@ankur-sharma/medium-common",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -16,5 +16,9 @@
   },
   "dependencies": {
     "zod": "^4.0.5"
-  }
+  },
+  "publishConfig": {
+  "access": "public"
+}
+
 }
