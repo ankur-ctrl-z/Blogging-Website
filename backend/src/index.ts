@@ -11,10 +11,11 @@ const app = new Hono<{
 }>()
 
 app.use('*', cors({
-  origin: 'https://blogging-website-one.vercel.app/',
+  origin: 'https://blogging-website-one.vercel.app',
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
-})) 
+}));
+
 
 app.route('/api/v1/user', userRouter)
 app.route('/api/v1/blog', blogRouter)
