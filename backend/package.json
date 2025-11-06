@@ -13,12 +13,11 @@
     "@prisma/extension-accelerate": "^2.0.2",
     "hono": "^4.8.4",
     "pg": "^8.16.3",
-    "prisma": "^6.18.0"
+    "prisma": "^6.19.0"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
     "dotenv-cli": "^8.0.0",
+    "typescript": "^5.4.5",
     "wrangler": "^4.45.4"
   }
 }
-
