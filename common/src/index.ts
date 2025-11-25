@@ -5,7 +5,7 @@ export const signupInput = z.object({
     password: z.string().min(5),
     name: z.string().optional()
 })
-
+ 
 export const signinInput = z.object({
     username: z.string().email(),
     password: z.string().min(6),
@@ -29,3 +29,5 @@ export type SigninInput = z.infer<typeof signinInput>
 export type CreateBlogInput = z.infer<typeof createBlogInput>
 
 export type UpdateBlogInput = z.infer<typeof updateBlogInput>
+
+// infer means “let TypeScript figure out the type automatically.”

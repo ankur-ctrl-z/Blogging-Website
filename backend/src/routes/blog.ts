@@ -58,7 +58,7 @@ blogRouter.post('/',async(c)=> {
     const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
-
+ 
     const blog = await prisma.blog.create({
         data: {
             title: body.title,
@@ -75,7 +75,7 @@ blogRouter.put('/',async(c)=> {
     const body = await c.req.json();
     const {success} = updateBlogInput.safeParse(body);
     if(!success){
-        c.status(411);
+        c.status(411); 
         return c.json({
             message: "Inputs not correct"
         })

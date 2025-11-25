@@ -5,7 +5,7 @@ import { jwt, sign } from 'hono/jwt';
 import { signupInput, signinInput } from '@ankur-sharma/medium-common';
 
 
-export const userRouter = new Hono<{
+export const userRouter = new Hono<{ 
         Bindings: {
 		DATABASE_URL: string; 
 		JWT_SECRET: string;

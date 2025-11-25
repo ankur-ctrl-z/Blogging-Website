@@ -32,7 +32,7 @@ export const Blogs = () => {
                     content={blog.content}
                     publishedDate={"2nd Feb 2024"}
                 />)}
-            </div>
+            </div> 
         </div>
     </div>
 }

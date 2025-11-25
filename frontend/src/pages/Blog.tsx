@@ -9,7 +9,7 @@ export const Blog = () => {
     const { id } = useParams();
     const {loading, blog} = useBlog({
         id: id || ""
-    });
+    }); 
 
     if (loading || !blog) {
         return <div>
