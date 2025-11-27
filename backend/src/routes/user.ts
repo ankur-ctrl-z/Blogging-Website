@@ -13,17 +13,15 @@ export const userRouter = new Hono<{
 
 userRouter.post('/signup', async (c) => {
     const body = await c.req.json();
-    const { success } = signupInput.safeParse(body);
 
+    const { success } = signupInput.safeParse(body);
     if (!success) {
         c.status(411);
-        return c.json({
-            message: "Inputs are not correct"
-        });
+        return c.json({ message: "Inputs are not correct" });
     }
 
     const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
+        datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate());
 
     try {
@@ -36,27 +34,23 @@ userRouter.post('/signup', async (c) => {
         });
 
         const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-
-        return c.json({ token });   // FIXED
+        return c.json({ token });
     } catch (error) {
-        console.error("Error during signup:", error);
-        return c.text('User already exists with this email', 411);
+        return c.text("User already exists with this email", 411);
     }
 });
 
 userRouter.post('/signin', async (c) => {
     const body = await c.req.json();
-    const { success } = signinInput.safeParse(body);
 
+    const { success } = signinInput.safeParse(body);
     if (!success) {
         c.status(411);
-        return c.json({
-            message: "Inputs are not correct"   // FIXED
-        });
+        return c.json({ message: "Inputs are not correct" });
     }
 
     const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
+        datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate());
 
     try {
@@ -69,16 +63,15 @@ userRouter.post('/signin', async (c) => {
 
         if (!user) {
             c.status(403);
-            return c.text('Invalid credentials');
+            return c.text("Invalid credentials");
         }
 
         const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-
-        return c.json({ token });  // FIXED
+        return c.json({ token });
     } catch (error) {
-        console.error("Error during signin:", error);
-        return c.text("Internal server error", 500);  // FIXED
+        return c.text("Internal server error", 500);
     }
 });
+
 
 
