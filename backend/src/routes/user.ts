@@ -28,16 +28,19 @@ userRouter.post('/signup', async(c) => {
     try {
 		const user =  await prisma.user.create({
 		data: {
+			name: body.name,
 			username: body.username,
 			password: body.password,
-			name: body.name
 		}
 	})
 	const token = await sign({
 		id: user.id
 	},c.env.JWT_SECRET)
 
-	return c.text("User logged in successfully: "+ token);
+	return c.json({ 
+       jwt: token,
+       message: "User logged in successfully"
+    });
 	} catch (error) {
 		console.error("Error during signup:",error)
     return c.text('User already exists with this email', 411);
@@ -50,7 +53,7 @@ userRouter.post('/signin', async(c) => {
 	if(!success){
 		c.status(411);
 		return c.json({
-			message: "Inputs are correct"
+			message: "Inputs are not correct"
 		})
 	}
 	const prisma = new PrismaClient({
@@ -63,7 +66,7 @@ userRouter.post('/signin', async(c) => {
             password: body.password
         }
 
-	})
+	}) 
 	if(!user){
 		c.status(403);
         return c.text('Invalid  credentials')
@@ -75,6 +78,8 @@ userRouter.post('/signin', async(c) => {
 	return c.text("User logged in successfully: "+ token);
 	} catch (error) {
 		console.error("Error during signin:",error)
+		c.status(500);
+        return c.json({ error: "Internal server error" });
 	}
 })
 
