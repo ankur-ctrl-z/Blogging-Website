@@ -5,27 +5,27 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name     String?
-  username    String   @unique
-  password String
-  blogs    Blog[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  username  String   @unique
+  password  String
+  blogs     Blog[]
+  createdAt DateTime @default(now())
 }
 
 model Blog {
-  id Int @id @default(autoincrement())
-  authorId  Int
-  content   String
+  id        Int      @id @default(autoincrement())
   title     String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])// authorId must match an existing User.id.
+  content   String
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
