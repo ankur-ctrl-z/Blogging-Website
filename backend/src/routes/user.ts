@@ -11,8 +11,6 @@ export const userRouter = new Hono<{
   }
 }>()
 
-// helper function to create prisma each request (Edge-safe)
-
 function getPrisma(dbUrl: string) {
   return new PrismaClient({
     datasourceUrl: dbUrl, 
@@ -21,8 +19,8 @@ function getPrisma(dbUrl: string) {
 
 userRouter.post('/signup', async (c) => {
   const body = await c.req.json()
-
   const { success } = signupInput.safeParse(body)
+  
   if (!success) {
     c.status(411)
     return c.json({ message: 'Inputs are not correct' })
@@ -42,14 +40,15 @@ userRouter.post('/signup', async (c) => {
     const token = await sign({ id: user.id }, c.env.JWT_SECRET)
     return c.json({ token })
   } catch (error) {
-    return c.text('User already exists with this email', 411)
+    c.status(411)
+    return c.text('User already exists with this email')
   }
 })
 
 userRouter.post('/signin', async (c) => {
   const body = await c.req.json()
-
   const { success } = signinInput.safeParse(body)
+
   if (!success) {
     c.status(411)
     return c.json({ message: 'Inputs are not correct' })
@@ -73,7 +72,8 @@ userRouter.post('/signin', async (c) => {
     const token = await sign({ id: user.id }, c.env.JWT_SECRET)
     return c.json({ token })
   } catch (error) {
-    return c.text('Internal server error', 500)
+    c.status(500)
+    return c.text('Internal server error')
   }
 })
 
