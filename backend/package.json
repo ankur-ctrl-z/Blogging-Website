@@ -2,7 +2,7 @@
   "name": "medium",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "dev": "wrangler dev",
     "deploy": "npm run build && wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/pg": "^8.15.6",
     "dotenv-cli": "^8.0.0",
-    "prisma": "^7.0.1",
+    "prisma": "^7.2.0",
     "typescript": "^5.4.5",
     "wrangler": "^4.45.4"
   }
